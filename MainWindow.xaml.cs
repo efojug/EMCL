@@ -26,14 +26,29 @@ namespace MCLauncher
         public static LauncherCore Core = LauncherCore.Create();
         public MainWindow()
         {
+            InitializeComponent();
+            var versions = Core.GetVersions().ToArray();
+            versionCombo.ItemsSource = versions;
+            List<string> javaList = new List<string>();
+            List<string> memoryList = new List<string>();
+            int memorynum = 512;
+            for(int i = 0; i < 7; i++)
+            {
+                memoryList.Add(Convert.ToString(memorynum) + "M");
+                memorynum *= 2;
+            }
+            memoryCombo.ItemsSource = memoryList;
+            memoryCombo.SelectedItem = memoryCombo.Items[2];
             string path = @"emcl.config";
             if (File.Exists(path))
             {
                 try
                 {
                     string[] contents = File.ReadAllLines(path);
+                    memoryCombo.SelectedItem = contents[0];
+                    versionCombo.SelectedItem = contents[1];
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "错误");
                 }
@@ -50,11 +65,6 @@ namespace MCLauncher
                     MessageBox.Show(ex.Message, "错误");
                 }
             }
-
-            InitializeComponent();
-            var versions = Core.GetVersions().ToArray();
-            versionCombo.ItemsSource = versions;
-            List<string> javaList = new List<string>();;
             foreach (string i in KMCCC.Tools.SystemTools.FindJava())
             {
                 javaList.Add(i);
@@ -90,8 +100,8 @@ namespace MCLauncher
                     launchOptions.Authenticator = new YggdrasilLogin(Online.Email.Text,Online.Password.Password, false);
                     break;
             }
-            launchOptions.MaxMemory = Convert.ToInt32(MemoryTextbox.Text);
-            if (versionCombo.Text != string.Empty && javaCombo.Text != string.Empty && (Offline.IDText.Text != string.Empty || (Online.Email.Text != string.Empty && Online.Password.Password != string.Empty) && MemoryTextbox.Text != string.Empty))
+            launchOptions.MaxMemory = Convert.ToInt32(memoryCombo.SelectedItem);
+            if (versionCombo.Text != string.Empty && javaCombo.Text != string.Empty && (Offline.IDText.Text != string.Empty || (Online.Email.Text != string.Empty && Online.Password.Password != string.Empty) && memoryCombo.Text != string.Empty))
             {
                 try
                 {
@@ -134,7 +144,7 @@ namespace MCLauncher
                         await t;
                         var v1 = microsoftAPIs.GetAllThings(t.Result.access_token, false);
                         SquareMinecraftLauncher.Minecraft.Game game = new SquareMinecraftLauncher.Minecraft.Game();
-                        await game.StartGame(versionCombo.Text, javaCombo.Text, Convert.ToInt32(MemoryTextbox.Text), v1.name, v1.uuid, v1.mcToken, string.Empty, string.Empty);
+                        await game.StartGame(versionCombo.Text, javaCombo.Text, Convert.ToInt32(memoryCombo.Text), v1.name, v1.uuid, v1.mcToken, string.Empty, string.Empty);
                     }
                 }
                 catch(Exception e)

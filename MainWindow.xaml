@@ -28,14 +28,11 @@
         <Button Content="离线" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" Margin="0,0,170,100" Click="Button_Click_1" Background="#FF7DCDFF" Foreground="White"></Button>
         <Button Content="正版" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" Margin="0,0,100,100" Click="Button_Click_2" Background="#FF7DFFCD" Foreground="White"></Button>
         <Button Content="微软" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" Margin="0,0,30,100" Click="Button_Click_3" Background="#FFFF7D7D" Foreground="White"></Button>
-        <TextBox Height="30"
+        <ComboBox Height="30"
              Width="200"
-             x:Name="MemoryTextbox"
-             Text="2048"
-             pu:TextBoxHelper.Header="最大内存 : "
-             pu:TextBoxHelper.Watermark="2048"
-             pu:TextBoxHelper.CornerRadius="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,110,0,0"/>
-        <Label x:Name="NMSL" Width="300" Height="100"></Label>
+             x:Name="memoryCombo"
+             pu:ComboBoxHelper.Header="最大内存 : "
+             pu:ComboBoxHelper.CornerRadius="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,110,0,0"/>
         <Button Height="60"
             Width="200"
             Content="启动游戏"
