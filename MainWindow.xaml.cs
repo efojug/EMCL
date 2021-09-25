@@ -27,7 +27,30 @@ namespace MCLauncher
         public MainWindow()
         {
             string path = @"emcl.config";
-            string[] contents = File.ReadAllLines(path, Encoding.Default);
+            if (File.Exists(path))
+            {
+                try
+                {
+                    string[] contents = File.ReadAllLines(path);
+                }
+                catch (Exception ex) 
+                {
+                    MessageBox.Show(ex.Message, "错误");
+                }
+            }
+            else
+            {
+                try
+                {
+                    FileStream newConfig = new FileStream(path, FileMode.Create);
+                    newConfig.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "错误");
+                }
+            }
+
             InitializeComponent();
             var versions = Core.GetVersions().ToArray();
             versionCombo.ItemsSource = versions;
@@ -116,7 +139,7 @@ namespace MCLauncher
                 }
                 catch(Exception e)
                 {
-                    MessageBox.Show("程序出现严重故障，请将此问题反馈作者。错误等级：III，详细信息：\n"+e, "警告");
+                    MessageBox.Show("程序出现严重故障，请将此问题反馈作者。错误等级：III，详细信息：\n"+e.Message, "警告");
                 }
             }
             else
