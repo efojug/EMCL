@@ -1,4 +1,4 @@
-# Easy minecraft launcher | dedicated initiator for EzServer
+# Easy Minecraft Launcher | dedicated initiator for EzMC Server
 
 # What is it?
 
