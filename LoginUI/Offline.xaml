@@ -6,9 +6,10 @@
       xmlns:local="clr-namespace:MCLauncher.LoginUI"
       mc:Ignorable="d" 
       d:DesignHeight="200" d:DesignWidth="200"
-      Title="Offline">
+      Title="Offline" HorizontalAlignment="Right" VerticalAlignment="Bottom">
 
     <Grid>
-        <TextBox x:Name="IDText" Text="Steve" Width="200" Height="30" VerticalAlignment="Bottom" FontSize="16" HorizontalAlignment="Right"></TextBox>
+        <TextBox x:Name="IDText" Width="130" Height="30" VerticalAlignment="Bottom" FontSize="16" HorizontalAlignment="Right"></TextBox>
+        <Label Width="60" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,130,0" FontSize="16">用户名</Label>
     </Grid>
 </Page>

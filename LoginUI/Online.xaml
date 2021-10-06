@@ -7,11 +7,10 @@
       mc:Ignorable="d" 
       d:DesignHeight="200" d:DesignWidth="200"
       Title="Online">
-
     <Grid>
-        <Label VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,158,40" FontSize="16">邮箱</Label>
-        <Label VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="16" Margin="0,0,158,5">密码</Label>
-        <PasswordBox x:Name="Password" VerticalAlignment="Bottom" Width="150" Height="30" HorizontalAlignment="Right"  FontSize="16" Margin="0,0,10,5"></PasswordBox>
-        <TextBox x:Name="Email" VerticalAlignment="Bottom" Width="150" Height="30" HorizontalAlignment="Right"  FontSize="16" Margin="0,0,10,40"></TextBox>
+        <Label VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,150,35" FontSize="16">邮箱</Label>
+        <TextBox x:Name="Email" VerticalAlignment="Bottom" Width="150" Height="30" HorizontalAlignment="Right"  FontSize="16" Margin="0,0,0,35"></TextBox>
+        <Label VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,150,0" FontSize="16">密码</Label>
+        <PasswordBox x:Name="Password" VerticalAlignment="Bottom" Width="150" Height="30" HorizontalAlignment="Right"  FontSize="16" Margin="0,0,0,0"></PasswordBox>
     </Grid>
 </Page>

@@ -1,46 +1,27 @@
 ﻿<pu:WindowX x:Class="MCLauncher.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:pu="clr-namespace:Panuon.UI.Silver;assembly=Panuon.UI.Silver"
         mc:Ignorable="d"
-        Title="Easy Minecraft Launcher" Height="720" Width="1280">
+        Title="Easy Minecraft Launcher v3.0.121" Height="720" Width="1280">
     <Grid>
         <ContentControl x:Name="ContentControl1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="375" Height="475" Margin="0,0,30,140"></ContentControl>
-        <ComboBox Height="30"
-              Width="200"
-               HorizontalAlignment="Left"
-                  x:Name="versionCombo"
-               VerticalAlignment="Top"
-               Margin="30,30,0,0"
-              pu:ComboBoxHelper.Header="请选择游戏版本 : "
-              DisplayMemberPath="Id"
-              pu:ComboBoxHelper.ItemHeight="30"/>
-        <ComboBox Height="30"
-              Width="200"
-               HorizontalAlignment="Left"
-                  x:Name="javaCombo"
-               VerticalAlignment="Top"
-               Margin="30,70,0,0"
-              pu:ComboBoxHelper.Header="请选择Java版本 : "
-              pu:ComboBoxHelper.ItemHeight="30"/>
-        <Button Content="离线" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" Margin="0,0,170,100" Click="Button_Click_1" Background="#FF7DCDFF" Foreground="White"></Button>
-        <Button Content="正版" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" Margin="0,0,100,100" Click="Button_Click_2" Background="#FF7DFFCD" Foreground="White"></Button>
+        <ComboBox Height="30" Width="200" HorizontalAlignment="Left" x:Name="versionCombo" VerticalAlignment="Top" Margin="30,30,0,0" DisplayMemberPath="version" SelectedValuePath="IdVersion"/>
+        <ComboBox Height="30" Width="200" HorizontalAlignment="Left" x:Name="javaCombo" VerticalAlignment="Top" Margin="30,70,0,0"/>
+        <ComboBox Height="30" Width="200" HorizontalAlignment="Left" x:Name="memoryCombo" VerticalAlignment="Top" Margin="30,110,0,0"/>
+        <Button Content="离线" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" Margin="0,0,160,100" Click="Button_Click_1" Background="#FF7DCDFF" Foreground="White"></Button>
+        <Button Content="正版" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" Margin="0,0,95,100" Click="Button_Click_2" Background="#FF7DFFCD" Foreground="White"></Button>
         <Button Content="微软" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" Margin="0,0,30,100" Click="Button_Click_3" Background="#FFFF7D7D" Foreground="White"></Button>
-        <ComboBox Height="30"
-             Width="200"
-             x:Name="memoryCombo"
-             pu:ComboBoxHelper.Header="最大内存 : "
-             pu:ComboBoxHelper.CornerRadius="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,110,0,0"/>
-        <Button Height="60"
-            Width="200"
-            Content="启动游戏"
-            pu:ButtonHelper.ButtonStyle="Outline"
-            pu:ButtonHelper.CornerRadius="15" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,28,30" FontSize="24" Click="Button_Click" Background="#FF7DBBFF" x:Name="Start" Foreground="White" BorderBrush="White"/>
-        <Button x:Name="reloadver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Height="25" Margin="240,35,0,0" Content="刷新版本列表" Background="#FFDFDFDF" Foreground="Black" Click="reloadver_Click"></Button>
-        <Button x:Name="reloadjava" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Height="25" Margin="240,75,0,0" Content="刷新Java列表" Background="#FFDFDFDF" Foreground="Black" Click="reloadjava_Click"></Button>
+        <Button Height="60" Width="190" Content="启动游戏" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,30" FontSize="24" Click="Button_Click" Background="#FF7DBBFF" x:Name="Start" Foreground="White" BorderBrush="White"/>
+        <Button x:Name="reloadver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Height="30" Margin="240,30,0,0" Content="刷新版本列表" Background="#FFDFDFDF" Foreground="Black" Click="reloadver_Click"></Button>
+        <Button x:Name="reloadjava" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Height="30" Margin="240,70,0,0" Content="刷新Java列表" Background="#FFDFDFDF" Foreground="Black" Click="reloadjava_Click"></Button>
         <Button x:Name="loadconfig" Content="加载配置文件" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="120" Height="30" Margin="20,0,0,20" Click="loadconfig_Click"></Button>
         <Button x:Name="saveconfig" Content="保存配置文件" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="120" Height="30" Margin="20,0,0,60" Click="saveconfig_Click"></Button>
+        <Button x:Name="wtf" Content="?" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Width="25" Margin="0,30,15,0" Click="wtf_Click"></Button>
+        <Button x:Name="fastrun" Content="运行" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Width="40" Margin="0,30,40,0" Click="fastrun_Click"></Button>
+        <Label HorizontalAlignment="Right" VerticalAlignment="Top" Width="90" Height="25" Margin="0,30,570,0">快速启动命令</Label>
+        <TextBox HorizontalAlignment="Right" VerticalAlignment="Top" Width="500" Height="25" Margin="0,30,80,0" x:Name="tb"></TextBox>
     </Grid>
 </pu:WindowX>

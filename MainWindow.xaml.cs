@@ -6,10 +6,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Panuon.UI.Silver;
-using KMCCC.Launcher;
-using KMCCC.Authentication;
 using System.IO;
 using ProjBobcat.DefaultComponent.Launch;
+using System.Diagnostics;
 
 namespace MCLauncher
 {
@@ -18,7 +17,7 @@ namespace MCLauncher
         public static void InitLauncherCore()
         {
             var clientToken = new Guid("88888888-8888-8888-8888-888888888888");
-            var rootPath = ".minecraft";
+            var rootPath = ".minecraft\\";
             core = new DefaultGameCore
             {
                 ClientToken = clientToken,
@@ -33,22 +32,37 @@ namespace MCLauncher
         LoginUI.Online Online = new LoginUI.Online();
         LoginUI.Microsoft Microsoft = new LoginUI.Microsoft();
         public int launchMode = 1;
+        SquareMinecraftLauncher.Minecraft.Game game = new SquareMinecraftLauncher.Minecraft.Game();
         public static DefaultGameCore core;
         SquareMinecraftLauncher.Minecraft.Tools tools = new SquareMinecraftLauncher.Minecraft.Tools();
-        public static LauncherCore Core = LauncherCore.Create();
         public MainWindow()
         {
             InitializeComponent();
+            InitLauncherCore();
             List<string> javaList = new List<string>();
             List<string> memoryList = new List<string>();
             int memorynum = 512;
-            for(int i = 0; i < 7; i++)
+            for (int i = 0; i < 7; i++)
             {
                 memoryList.Add(Convert.ToString(memorynum) + "M");
                 memorynum *= 2;
             }
             memoryCombo.ItemsSource = memoryList;
             memoryCombo.SelectedItem = memoryCombo.Items[2];
+            javaList.Add(tools.GetJavaPath());
+            javaCombo.ItemsSource = javaList;
+            var versions = tools.GetAllTheExistingVersion(); 
+            versionCombo.ItemsSource = versions;
+            try
+            {
+                versionCombo.SelectedItem = versionCombo.Items[0];
+            }
+            catch { }
+            try
+            {
+                javaCombo.SelectedItem = javaCombo.Items[0];
+            }
+            catch { }
             string path = @"emcl.config";
             if (File.Exists(path))
             {
@@ -56,12 +70,13 @@ namespace MCLauncher
                 {
                     string[] contents = File.ReadAllLines(path);
                     memoryCombo.SelectedItem = contents[0];
-                    versionCombo.SelectedItem = contents[1];
+                    versionCombo.Text = contents[1];
+                    Offline.IDText.Text = contents[2];
+                    Online.Email.Text = contents[3];
+                    Online.Password.Password = contents[4];
+                    javaCombo.SelectedItem = contents[5];
                 }
-                catch (Exception ex)
-                {
-                    MessageBoxX.Show(ex.Message, "错误");
-                }
+                catch { }
             }
             else
             {
@@ -75,90 +90,54 @@ namespace MCLauncher
                     MessageBoxX.Show(ex.Message, "错误");
                 }
             }
-            foreach (string i in KMCCC.Tools.SystemTools.FindJava())
-            {
-                javaList.Add(i);
-            }
-            foreach (string i in ProjBobcat.Class.Helper.SystemInfoHelper.FindJava())
-            {
-                javaList.Add(i);
-            }
-            javaList.Add(tools.GetJavaPath());
-            javaCombo.ItemsSource = javaList;
-            try
-            {
-                versionCombo.SelectedItem = versionCombo.Items[0];
-            }
-            catch
-            {
-                MessageBoxX.Show("找不到游戏版本，请下载后再打开启动器","提示");
-            }
-            try
-            {
-                javaCombo.SelectedItem = javaCombo.Items[0];
-            }
-            catch
-            {
-                MessageBoxX.Show("找不到Java8或Java16，请去java.com重新安装Java\n请不要使用“绿色版Java等非正常手动安装的Java，这会导致启动器无法识别", "提示");
-            }
         }
         public async void GameStart()
         {
-            try
+            using (StreamWriter config = new StreamWriter("test.config"))
             {
-                var ver = (KMCCC.Launcher.Version)versionCombo.SelectedItem;
-                using (StreamWriter config = new StreamWriter("emcl.config"))
-                {
-                    config.WriteLine(memoryCombo.SelectedItem);
-                    config.WriteLine(ver);
-                    config.Close();
-                }
+                config.WriteLine(memoryCombo.Text);
+                config.Close();
             }
-            catch (Exception ex)
-            {
-                MessageBoxX.Show(ex.Message, "错误");
-            }
-            LaunchOptions launchOptions = new LaunchOptions();
+            string cutMemoryCombo = memoryCombo.Text.Substring(0, memoryCombo.Text.Length - 1);
+            cutMemoryCombo = memoryCombo.Text.Remove(memoryCombo.Text.Length - 1, 1);
+            int intCutMemoryCombo = Convert.ToInt32(cutMemoryCombo);
             switch (launchMode)
             {
                 case 1:
-                    launchOptions.Authenticator = new OfflineAuthenticator(Offline.IDText.Text);
-                    break;
-                case 2:
-                    launchOptions.Authenticator = new YggdrasilLogin(Online.Email.Text,Online.Password.Password, false);
-                    break;
-            }
-            launchOptions.MaxMemory = Convert.ToInt32(memoryCombo.SelectedItem);
-            if (versionCombo.Text != string.Empty && javaCombo.Text != string.Empty && (Offline.IDText.Text != string.Empty || (Online.Email.Text != string.Empty && Online.Password.Password != string.Empty) && memoryCombo.Text != string.Empty))
-            {
-                try
-                {
-                    if(launchMode!=3)
+                    if (versionCombo.Text != string.Empty && javaCombo.Text != string.Empty && Offline.IDText.Text != string.Empty)
                     {
-                        Core.JavaPath = javaCombo.Text;
-                        var ver = (KMCCC.Launcher.Version)versionCombo.SelectedItem;
-                        launchOptions.Version = ver;
-                        var result = Core.Launch(launchOptions);
-                        if (!result.Success)
+                        try
                         {
-                            switch (result.ErrorType)
-                            {
-                                case ErrorType.NoJAVA:
-                                    MessageBoxX.Show("找不到Java8或Java16，请去java.com重新安装Java\n请不要使用“绿色版Java等非正常手动安装的Java，这会导致启动器无法识别：" + result.ErrorMessage, "游戏启动失败");
-                                    break;
-                                case ErrorType.AuthenticationFailed:
-                                    MessageBoxX.Show("登录失败，请重试：" + result.ErrorMessage, "游戏启动失败");
-                                    break;
-                                case ErrorType.UncompressingFailed:
-                                    MessageBoxX.Show("找不到资源文件：" + result.ErrorMessage, "游戏启动失败");
-                                    break;
-                                default:
-                                    MessageBoxX.Show("未知的错误：" + result.ErrorMessage, "游戏启动失败");
-                                    break;
-                            }
+                            await game.StartGame(versionCombo.Text, javaCombo.Text, intCutMemoryCombo, Offline.IDText.Text);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBoxX.Show("资源文件不完整：\n" + ex.Message,"游戏启动失败");
                         }
                     }
                     else
+                    {
+                        MessageBoxX.Show("请完整填写游戏信息", "游戏启动失败");
+                    }
+                    break;
+                case 2:
+                    if (versionCombo.Text != string.Empty && javaCombo.Text != string.Empty && Online.Email.Text != string.Empty && Online.Password.Password != string.Empty)
+                    {
+                        try {
+                            await game.StartGame(versionCombo.Text, javaCombo.Text, intCutMemoryCombo, Online.Email.Text, Online.Password.Password);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBoxX.Show("资源文件不完整：\n" + ex.Message, "游戏启动失败");
+                        }
+                    }
+                    else
+                    {
+                        MessageBoxX.Show("请完整填写游戏信息", "游戏启动失败");
+                    }
+                    break;
+                case 3:
+                    if (versionCombo.Text != string.Empty && javaCombo.Text != string.Empty)
                     {
                         try
                         {
@@ -169,23 +148,18 @@ namespace MCLauncher
                             });
                             await t;
                             var v1 = microsoftAPIs.GetAllThings(t.Result.access_token, false);
-                            SquareMinecraftLauncher.Minecraft.Game game = new SquareMinecraftLauncher.Minecraft.Game();
                             await game.StartGame(versionCombo.Text, javaCombo.Text, Convert.ToInt32(memoryCombo.Text), v1.name, v1.uuid, v1.mcToken, string.Empty, string.Empty);
                         }
-                        catch (Exception e)
+                        catch (Exception ex)
                         {
-                            MessageBoxX.Show("未知的错误：" + e, "游戏启动失败");
+                            MessageBoxX.Show("资源文件不完整：\n" + ex.Message, "游戏启动失败");
                         }
                     }
-                }
-                catch(Exception e)
-                {
-                    MessageBox.Show("程序出现严重故障，请将此问题反馈作者。错误等级：III，详细信息：\n"+e.Message, "警告");
-                }
-            }
-            else
-            {
-                MessageBoxX.Show("信息未填写完整", "错误");
+                    else
+                    {
+                        MessageBoxX.Show("请完整填写游戏信息", "游戏启动失败");
+                    }
+                    break;
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -222,7 +196,7 @@ namespace MCLauncher
 
         private void reloadver_Click(object sender, RoutedEventArgs e)
         {
-            var versions = Core.GetVersions().ToArray();
+            var versions = tools.GetAllTheExistingVersion();
             versionCombo.ItemsSource = versions;
             try
             {
@@ -237,10 +211,6 @@ namespace MCLauncher
         private void reloadjava_Click(object sender, RoutedEventArgs e)
         {
             List<string> javaList = new List<string>(); ;
-            foreach (string i in KMCCC.Tools.SystemTools.FindJava())
-            {
-                javaList.Add(i);
-            }
             javaList.Add(tools.GetJavaPath());
             javaCombo.ItemsSource = javaList;
             javaCombo.SelectedItem = javaCombo.Items[0];
@@ -255,49 +225,57 @@ namespace MCLauncher
                 {
                     string[] contents = File.ReadAllLines(path);
                     memoryCombo.SelectedItem = contents[0];
+                    versionCombo.Text = contents[1];
+                    Offline.IDText.Text = contents[2];
+                    Online.Email.Text = contents[3];
+                    Online.Password.Password = contents[4];
+                    javaCombo.SelectedItem = contents[5];
                 }
-                catch (Exception ex) {
-                    MessageBoxX.Show(ex.Message, "错误");
-                }
-                try
-                {
-                    string[] contents = File.ReadAllLines(path);
-                    versionCombo.SelectedItem = contents[1];
-                }
-                catch (Exception ex)
-                {
-                    MessageBoxX.Show(ex.Message, "错误");
-                }
-            }
-            else
-            {
-                try
-                {
-                    FileStream newConfig = new FileStream(path, FileMode.Create);
-                    newConfig.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBoxX.Show(ex.Message, "错误");
-                }
+                catch { }
             }
         }
-
         private void saveconfig_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                var ver = (KMCCC.Launcher.Version)versionCombo.SelectedItem;
                 using (StreamWriter config = new StreamWriter("emcl.config"))
                 {
                     config.WriteLine(memoryCombo.SelectedItem);
-                    config.WriteLine(ver);
+                    config.WriteLine(versionCombo.Text);
+                    config.WriteLine(Offline.IDText.Text);
+                    config.WriteLine(Online.Email.Text);
+                    config.WriteLine(Online.Password.Password);
+                    config.WriteLine(javaCombo.SelectedItem);
                     config.Close();
+                    MessageBoxX.Show("保存成功","提示");
                 }
             }
             catch (Exception ex)
             {
                 MessageBoxX.Show(ex.Message, "错误");
+            }
+        }
+
+        private void wtf_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxX.Show("这个命令是给一些高级玩家或整合包作者准备的，如果您需要正常的启动游戏，那么这个框不需要填写，您可以通过一些参数自定义启动方法，比如说：\n emcl -version:<这里是要启动的版本名，如：1.15.2> \n -memory:<这里是启动游戏所分配的内存，如：8192M> \n -offlinename:<这里是离线模式用户名，如：abc123> \n -onlineemail:<这里是正版模式邮箱(注意：输入了离线模式用户名后请勿输入正版模式信息，否则将会按照离线模式启动)，如：abc123@163.com> \n -onlinepassword:<这里是正版模式密码(注意：不会自动加密为*，请在确保信息安全的情况下输入，如果发生盗号，本程序不承担任何法律责任)，如：abcabcabc> \n -microsoftlogin(该参数没有任何后缀，只是用于标记为微软登录，注意：微软登录并不会自动登录，您需要在窗口中完成登录后才会自动启动游戏！) \n 下面是一个离线启动示例： \n emcl -version:1.15.2 -memory:2048M -offlinename:efojug \n 下面是一个正版启动示例： \n emcl -version:1.12.2 -memory:4096M -onlineemail:efojug@efojug.com -onlinepassword:123456 \n 下面是一个微软启动示例： \n emcl -version:1.14.4 -memory:16384M -microsoftlogin", "提示");
+        }
+
+        private void fastrun_Click(object sender, RoutedEventArgs e)
+        {
+            string[] temp = tb.Text.Split(':');
+            List<string> parameter = new List<string>();
+            foreach (string str in temp)
+            {
+                if (str.Contains(":"))
+                {
+                    int index = str.IndexOf(':');
+                    parameter.Add(str.Substring(index + 1, str.Length - index - 1));
+                }
+            }
+            for (int item = 0; item <= parameter.ToArray().Length;item++)
+            {
+                MessageBoxX.Show(parameter[item], "L");
             }
         }
     }
