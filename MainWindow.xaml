@@ -19,9 +19,9 @@
         <Button x:Name="reloadjava" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Height="30" Margin="240,70,0,0" Content="刷新Java列表" Background="#FFDFDFDF" Foreground="Black" Click="reloadjava_Click"></Button>
         <Button x:Name="loadconfig" Content="加载配置文件" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="120" Height="30" Margin="20,0,0,20" Click="loadconfig_Click"></Button>
         <Button x:Name="saveconfig" Content="保存配置文件" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="120" Height="30" Margin="20,0,0,60" Click="saveconfig_Click"></Button>
-        <Button x:Name="wtf" Content="?" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Width="25" Margin="0,30,15,0" Click="wtf_Click"></Button>
-        <Button x:Name="fastrun" Content="运行" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Width="40" Margin="0,30,40,0" Click="fastrun_Click"></Button>
-        <Label HorizontalAlignment="Right" VerticalAlignment="Top" Width="90" Height="25" Margin="0,30,570,0">快速启动命令</Label>
-        <TextBox HorizontalAlignment="Right" VerticalAlignment="Top" Width="500" Height="25" Margin="0,30,80,0" x:Name="tb" Text=""></TextBox>
+        <Button x:Name="wtf" Content="?" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Width="25" Margin="0,30,165,0" Click="wtf_Click"></Button>
+        <Button x:Name="fastrun" Content="运行" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Width="40" Margin="0,30,190,0" Click="fastrun_Click"></Button>
+        <Label HorizontalAlignment="Right" VerticalAlignment="Top" Width="90" Height="25" Margin="0,30,720,0">快速启动命令</Label>
+        <TextBox HorizontalAlignment="Right" VerticalAlignment="Top" Width="500" Height="25" Margin="0,30,230,0" x:Name="tb" Text=""></TextBox>
     </Grid>
 </pu:WindowX>
