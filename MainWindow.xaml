@@ -22,6 +22,6 @@
         <Button x:Name="wtf" Content="?" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Width="25" Margin="0,30,15,0" Click="wtf_Click"></Button>
         <Button x:Name="fastrun" Content="运行" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Width="40" Margin="0,30,40,0" Click="fastrun_Click"></Button>
         <Label HorizontalAlignment="Right" VerticalAlignment="Top" Width="90" Height="25" Margin="0,30,570,0">快速启动命令</Label>
-        <TextBox HorizontalAlignment="Right" VerticalAlignment="Top" Width="500" Height="25" Margin="0,30,80,0" x:Name="tb"></TextBox>
+        <TextBox HorizontalAlignment="Right" VerticalAlignment="Top" Width="500" Height="25" Margin="0,30,80,0" x:Name="tb" Text=""></TextBox>
     </Grid>
 </pu:WindowX>

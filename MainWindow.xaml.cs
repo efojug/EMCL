@@ -9,6 +9,7 @@ using Panuon.UI.Silver;
 using System.IO;
 using ProjBobcat.DefaultComponent.Launch;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace MCLauncher
 {
@@ -263,20 +264,22 @@ namespace MCLauncher
 
         private void fastrun_Click(object sender, RoutedEventArgs e)
         {
-            string[] temp = tb.Text.Split(':');
-            List<string> parameter = new List<string>();
+            string source = tb.Text;
+            string[] temp = source.Split(']');
+            List<string> list = new List<string>();
             foreach (string str in temp)
             {
-                if (str.Contains(":"))
+                if (str.Contains("["))
                 {
-                    int index = str.IndexOf(':');
-                    parameter.Add(str.Substring(index + 1, str.Length - index - 1));
+                    int index = str.IndexOf("[");
+                    list.Add(str.Substring(index + 1, str.Length - index - 1));
                 }
             }
-            for (int item = 0; item <= parameter.ToArray().Length;item++)
+            for (int i = 0; i < temp.ToArray().Length - 1; i++)
             {
-                MessageBoxX.Show(parameter[item], "L");
+                MessageBoxX.Show(list[i]);
             }
+
         }
     }
 }
