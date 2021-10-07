@@ -40,7 +40,6 @@ namespace MCLauncher
         {
             InitializeComponent();
             InitLauncherCore();
-            List<string> javaList = new List<string>();
             List<string> memoryList = new List<string>();
             int memorynum = 512;
             for (int i = 0; i < 7; i++)
@@ -50,8 +49,7 @@ namespace MCLauncher
             }
             memoryCombo.ItemsSource = memoryList;
             memoryCombo.SelectedItem = memoryCombo.Items[2];
-            javaList.Add(tools.GetJavaPath());
-            javaCombo.ItemsSource = javaList;
+            javaCombo.ItemsSource = tools.GetJavaPath();
             var versions = tools.GetAllTheExistingVersion(); 
             versionCombo.ItemsSource = versions;
             try
@@ -206,9 +204,7 @@ namespace MCLauncher
 
         private void reloadjava_Click(object sender, RoutedEventArgs e)
         {
-            List<string> javaList = new List<string>(); ;
-            javaList.Add(tools.GetJavaPath());
-            javaCombo.ItemsSource = javaList;
+            javaCombo.ItemsSource = tools.GetJavaPath();
             javaCombo.SelectedItem = javaCombo.Items[0];
         }
 

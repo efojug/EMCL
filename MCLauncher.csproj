@@ -158,7 +158,7 @@
       <HintPath>packages\SharpCompress.0.29.0\lib\netstandard2.0\SharpCompress.dll</HintPath>
     </Reference>
     <Reference Include="SquareMinecraftLauncherCore, Version=3.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\SquareMinecraftLauncher.Core.3.6.0\lib\net452\SquareMinecraftLauncherCore.dll</HintPath>
+      <HintPath>packages\SquareMinecraftLauncher.Core.3.7.0\lib\net452\SquareMinecraftLauncherCore.dll</HintPath>
     </Reference>
     <Reference Include="Steeltoe.Common, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Steeltoe.Common.3.1.1\lib\netstandard2.0\Steeltoe.Common.dll</HintPath>
