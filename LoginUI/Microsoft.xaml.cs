@@ -21,9 +21,6 @@ namespace MCLauncher.LoginUI
         public Microsoft()
         {
             InitializeComponent();
-            MicrosoftAPIs microsoftAPIs = new MicrosoftAPIs();
-            microsoftAPIs.SuppressWininetBehavior();
-            wb.Source = microsoftAPIs.loginWebsite;
         }
     }
 }

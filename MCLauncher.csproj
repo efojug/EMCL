@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Costura.Fody.5.6.0\build\Costura.Fody.props" Condition="Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.props')" />
   <Import Project="packages\Janitor.Fody.1.8.0\build\Janitor.Fody.props" Condition="Exists('packages\Janitor.Fody.1.8.0\build\Janitor.Fody.props')" />
   <Import Project="packages\ConfigureAwait.Fody.3.3.1\build\ConfigureAwait.Fody.props" Condition="Exists('packages\ConfigureAwait.Fody.3.3.1\build\ConfigureAwait.Fody.props')" />
-  <Import Project="packages\Costura.Fody.5.6.0\build\Costura.Fody.props" Condition="Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -157,8 +158,8 @@
     <Reference Include="SharpCompress, Version=0.29.0.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
       <HintPath>packages\SharpCompress.0.29.0\lib\netstandard2.0\SharpCompress.dll</HintPath>
     </Reference>
-    <Reference Include="SquareMinecraftLauncherCore, Version=3.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\SquareMinecraftLauncher.Core.3.7.0\lib\net452\SquareMinecraftLauncherCore.dll</HintPath>
+    <Reference Include="SquareMinecraftLauncherCore, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SquareMinecraftLauncher.Core.3.8.0\lib\net452\SquareMinecraftLauncherCore.dll</HintPath>
     </Reference>
     <Reference Include="Steeltoe.Common, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Steeltoe.Common.3.1.1\lib\netstandard2.0\Steeltoe.Common.dll</HintPath>
@@ -439,14 +440,14 @@
     <PropertyGroup>
       <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.5.6.0\build\Costura.Fody.props'))" />
-    <Error Condition="!Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.5.6.0\build\Costura.Fody.targets'))" />
     <Error Condition="!Exists('packages\ConfigureAwait.Fody.3.3.1\build\ConfigureAwait.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\ConfigureAwait.Fody.3.3.1\build\ConfigureAwait.Fody.props'))" />
     <Error Condition="!Exists('packages\Janitor.Fody.1.8.0\build\Janitor.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Janitor.Fody.1.8.0\build\Janitor.Fody.props'))" />
-    <Error Condition="!Exists('packages\Fody.6.5.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Fody.6.5.3\build\Fody.targets'))" />
     <Error Condition="!Exists('packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+    <Error Condition="!Exists('packages\Fody.6.5.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Fody.6.5.3\build\Fody.targets'))" />
+    <Error Condition="!Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.5.6.0\build\Costura.Fody.props'))" />
+    <Error Condition="!Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.5.6.0\build\Costura.Fody.targets'))" />
   </Target>
-  <Import Project="packages\Costura.Fody.5.6.0\build\Costura.Fody.targets" Condition="Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.targets')" />
-  <Import Project="packages\Fody.6.5.3\build\Fody.targets" Condition="Exists('packages\Fody.6.5.3\build\Fody.targets')" />
   <Import Project="packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Import Project="packages\Fody.6.5.3\build\Fody.targets" Condition="Exists('packages\Fody.6.5.3\build\Fody.targets')" />
+  <Import Project="packages\Costura.Fody.5.6.0\build\Costura.Fody.targets" Condition="Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.targets')" />
 </Project>
