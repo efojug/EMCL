@@ -7,6 +7,8 @@ using Panuon.UI.Silver;
 using System.IO;
 using ProjBobcat.DefaultComponent.Launch;
 using SquareMinecraftLauncher.Core.OAuth;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace MCLauncher
 {
@@ -103,12 +105,12 @@ namespace MCLauncher
                         }
                         catch (Exception ex)
                         {
-                            MessageBoxX.Show("资源文件不完整：\n" + ex.Message, "游戏启动失败");
+                            MessageBoxX.Show("资源文件不完整：\n" + ex.Message, "启动失败");
                         }
                     }
                     else
                     {
-                        MessageBoxX.Show("请完整填写游戏信息", "游戏启动失败");
+                        MessageBoxX.Show("请完整填写信息", "启动失败");
                     }
                     break;
                 case 2:
@@ -119,12 +121,12 @@ namespace MCLauncher
                         }
                         catch (Exception ex)
                         {
-                            MessageBoxX.Show("资源文件不完整：\n" + ex.Message, "游戏启动失败");
+                            MessageBoxX.Show("资源文件不完整：\n" + ex.Message, "启动失败");
                         }
                     }
                     else
                     {
-                        MessageBoxX.Show("请完整填写游戏信息", "游戏启动失败");
+                        MessageBoxX.Show("请完整填写信息", "启动失败");
                     }
                     break;
                 case 3:
@@ -139,14 +141,13 @@ namespace MCLauncher
                         var Minecraft = minecraftlogin.GetMincraftuuid(Minecraft_Token);
                         string uuid = Minecraft.uuid;
                         string name = Minecraft.name;
-                        microsoftLogin.Login(auto);
                         try
                         {
                             await game.StartGame(versionCombo.Text, javaCombo.SelectedValue.ToString(), intCutMemoryCombo, name, uuid, Minecraft_Token, "", "");
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("资源文件不完整：\n" + ex.Message, "游戏启动失败");
+                            MessageBox.Show("资源文件不完整：\n" + ex.Message, "启动失败");
                         }
                         /*try
                         {
@@ -161,12 +162,12 @@ namespace MCLauncher
                         }
                         catch (Exception ex)
                         {
-                            MessageBoxX.Show("资源文件不完整：\n" + ex.Message, "游戏启动失败");
+                            MessageBoxX.Show("资源文件不完整：\n" + ex.Message, "启动失败");
                         }*/
                     }
                     else
                     {
-                        MessageBoxX.Show("请完整填写游戏信息", "游戏启动失败");
+                        MessageBoxX.Show("请完整填写信息", "启动失败");
                     }
                     break;
             }
@@ -177,16 +178,15 @@ namespace MCLauncher
         }
         private void Offline_Login(object sender, RoutedEventArgs e)
         {
-            ContentControl1.Content = new Frame
+            LoginContent.Content = new Frame
             {Content = Offline};
             Color color = (Color)ColorConverter.ConvertFromString("#FF7DCDFF");
             Start.Background = new SolidColorBrush(color);
            launchMode = 1;
         }
-
         private void Online_Login(object sender, RoutedEventArgs e)
         {
-            ContentControl1.Content = new Frame
+            LoginContent.Content = new Frame
             { Content = Online };
             Color color = (Color)ColorConverter.ConvertFromString("#FF7DFFCD");
             Start.Background = new SolidColorBrush(color);
@@ -195,7 +195,7 @@ namespace MCLauncher
 
         private void Microsoft_Login(object sender, RoutedEventArgs e)
         {
-            ContentControl1.Content = new Frame
+            LoginContent.Content = new Frame
             { Content = Microsoft };
             Color color = (Color)ColorConverter.ConvertFromString("#FFFF7D7D");
             Start.Background = new SolidColorBrush(color);
@@ -271,6 +271,12 @@ namespace MCLauncher
             {
                 MessageBoxX.Show(ex.Message, "错误");
             }
+        }
+
+        private void clickme_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+            Process.GetCurrentProcess().Kill();
         }
     }
 }

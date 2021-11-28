@@ -5,9 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:pu="clr-namespace:Panuon.UI.Silver;assembly=Panuon.UI.Silver"
         mc:Ignorable="d"
-        Title="Easy Minecraft Launcher v3.0.129" Height="510" Width="830">
-    <Grid>
-        <ContentControl x:Name="ContentControl1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="375" Height="475" Margin="0,0,30,140"></ContentControl>
+        Title="Easy Minecraft Launcher v3.0.132" Height="510" Width="830" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" FontWeight="Normal">
+    <Grid Cursor="Hand">
+        <ContentControl x:Name="LoginContent" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="190" Height="65" Margin="0,0,30,140"></ContentControl>
         <ComboBox Height="30" Width="200" HorizontalAlignment="Left" x:Name="versionCombo" VerticalAlignment="Top" Margin="30,30,0,0" DisplayMemberPath="version" SelectedValuePath="IdVersion"/>
         <ComboBox Height="30" Width="200" HorizontalAlignment="Left" x:Name="javaCombo" VerticalAlignment="Top" Margin="30,70,0,0" DisplayMemberPath="Version" SelectedValuePath="Path"/>
         <ComboBox Height="30" Width="200" HorizontalAlignment="Left" x:Name="memoryCombo" VerticalAlignment="Top" Margin="30,110,0,0"/>
@@ -19,5 +19,7 @@
         <Button x:Name="reloadjava" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Height="30" Margin="240,70,0,0" Content="刷新Java列表" Background="#FFDFDFDF" Foreground="Black" Click="reloadjava_Click"></Button>
         <Button x:Name="loadconfig" Content="加载配置文件" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="120" Height="30" Margin="20,0,0,20" Click="loadconfig_Click"></Button>
         <Button x:Name="saveconfig" Content="保存配置文件" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="120" Height="30" Margin="20,0,0,60" Click="saveconfig_Click"></Button>
+        <Button x:Name="clickme" Content="Don't Click Me" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Height="30" Margin="240,0,0,90" Click="clickme_Click"></Button>
+        
     </Grid>
 </pu:WindowX>
