@@ -243,6 +243,7 @@ namespace MCLauncher
                     Online.Email.Text = contents[3];
                     Online.Password.Password = contents[4];
                     javaCombo.SelectedItem = contents[5];
+                    MessageBoxX.Show("加载成功", "提示");
                 }
                 catch { }
             }
